@@ -1,3 +1,3 @@
 !#/bin/bash
 
-echo ciao;
+echo "ciao"
