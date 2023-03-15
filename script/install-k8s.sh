@@ -1,7 +1,6 @@
 #!/bin/sh
 
-echo "ciao"
-
+echo "ciao";
 
 sudo apt update && sudo apt upgrade
 sudo apt install -y apt-transport-https ca-certificates curl
