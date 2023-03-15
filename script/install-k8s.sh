@@ -2,37 +2,42 @@
 
 echo "ciao";
 
-sudo apt update && sudo apt upgrade
-sudo apt install -y apt-transport-https ca-certificates curl
+K8S_VERSION="1.25.6";
+RUNC_VERSION="1.1.4";
+CONTAINERD_VERSION="1.6.16";
+CLI_ARCH="amd64";
+
+sudo apt update && sudo apt upgrade;
+sudo apt install -y apt-transport-https ca-certificates curl;
 
 # Installing and configure prerequisites
 # Disabling swap
-sudo sed -i 's/\/swap/#\/swap/' /etc/fstab
-swapoff -a
+sudo sed -i 's/\/swap/#\/swap/' /etc/fstab;
+swapoff -a;
 
 # Add modules permanently
 cat <<EOF | tee /etc/modules-load.d/containerd.conf > /dev/null
 overlay
 br_netfilter
-EOF
+EOF;
 
 # Enable modules
-modprobe overlay
-modprobe br_netfilter
+modprobe overlay;
+modprobe br_netfilter;
 
 # sysctl params required by setup, params persist across reboots
 cat <<EOF | tee /etc/sysctl.d/99-kubernetes-cri.conf > /dev/null
 net.bridge.bridge-nf-call-iptables  = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
-EOF
+EOF;
 
 # Apply kernel params without reboot
-sysctl --system
+sysctl --system;
 
 # Installing the container runtime
 # Configure containerd
-echo "Installing containerd"
+echo "Installing containerd";
 
 curl -sLO https://github.com/containerd/containerd/releases/download/v${CONTAINERD_VERSION}/containerd-${CONTAINERD_VERSION}-linux-${CLI_ARCH}.tar.gz
 
