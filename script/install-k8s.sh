@@ -1,5 +1,5 @@
 #!/bin/sh
-sudo apt update && sudo apt upgrade;
+apt update;
 echo "ciao";
 
 K8S_VERSION="1.25.6";
