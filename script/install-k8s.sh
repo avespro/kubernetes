@@ -7,12 +7,12 @@ RUNC_VERSION="1.1.4"
 CONTAINERD_VERSION="1.6.16"
 CLI_ARCH="amd64"
 
-sudo apt update && sudo apt upgrade
+sudo apt update
 sudo apt install -y apt-transport-https ca-certificates curl
 
 # Installing and configure prerequisites
 # Disabling swap
-sudo sed -i 's/\/swap/#\/swap/' /etc/fstab
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 swapoff -a
 
 # Add modules permanently
