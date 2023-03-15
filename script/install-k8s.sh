@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 K8S_VERSION="1.25.6"
 RUNC_VERSION="1.1.4"
 CONTAINERD_VERSION="1.6.16"
