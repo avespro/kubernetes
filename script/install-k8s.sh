@@ -5,9 +5,9 @@ RUNC_VERSION="1.1.4"
 CONTAINERD_VERSION="1.6.16"
 CLI_ARCH="amd64"
 
-# apt-get update 
-# apt-get upgrade
-# sudo apt install -y apt-transport-https ca-certificates curl
+ apt-get update 
+ apt-get upgrade
+ sudo apt install -y apt-transport-https ca-certificates curl
 
 # Installing and configure prerequisites
 # Disabling swap
