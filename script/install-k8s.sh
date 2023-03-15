@@ -58,16 +58,23 @@ systemctl enable --now containerd
 
 # Install runc
 echo "Installing runc"
+
 curl -sLO https://github.com/opencontainers/runc/releases/download/v${RUNC_VERSION}/runc.${CLI_ARCH}
 install -m 755 runc.${CLI_ARCH} /usr/local/bin/runc
+
 rm runc.${CLI_ARCH}
+
 # Installing kubeadm, kubelet and kubectl
 echo "Installing kubeadm, kubelet and kubectl"
 curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
+
 apt-get update
+
 apt-get install -y kubelet=$K8S_VERSION-00 kubeadm=$K8S_VERSION-00 kubectl=$K8S_VERSION-00
+
 apt-mark hold kubelet kubeadm kubectl
+
 # Init control-plane
 cat <<EOF | tee ~/kubeadm-config.yaml > /dev/null
 kind: InitConfiguration
@@ -88,4 +95,5 @@ kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
 cgroupDriver: "systemd"
 EOF
+
 kubeadm init --config ~/kubeadm-config.yaml
